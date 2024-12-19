@@ -1,0 +1,23 @@
+
+{
+  "etudiants": [
+    {
+      "id": "E001",
+      "matricule": "20230001",
+      "nomComplet": "Baba Issa Ndiaye",
+      "adress": "Ouakam",
+      "login": "babaissandiaye242@gmail.com",
+      "mdp": "passer123",
+      "classeId": "C001"
+    },
+    {
+      "id": "E002",
+      "matricule": "20230002",
+      "nomComplet": "Getchar Diallo",
+      "adress": "Liberté 4",
+      "login": "getchardiallo@gmail.com",
+      "mdp": "passer123",
+      "classeId": "C001"
+    }
+  ]
+}

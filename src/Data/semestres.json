@@ -1,0 +1,15 @@
+{
+    "semestres": [
+      {
+        "id": "S001",
+        "nom": "Semestre 1",
+        "etat": "en_cours"
+      },
+      {
+        "id": "S002",
+        "nom": "Semestre 2",
+        "etat": "à_venir"
+      }
+    ]
+  }
+  

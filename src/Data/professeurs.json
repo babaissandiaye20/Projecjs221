@@ -1,0 +1,18 @@
+{
+  "professeurs": [
+    {
+      "id": "P001",
+      "nom": "Dubois",
+      "prenom": "Pierre",
+      "grade": "Professeur",
+      "specialite": "Mathématiques"
+    },
+    {
+      "id": "P002",
+      "nom": "Lambert",
+      "prenom": "Sophie",
+      "grade": "Maître de conférences",
+      "specialite": "Informatique"
+    }
+  ]
+}

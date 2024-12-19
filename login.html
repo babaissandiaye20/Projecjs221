@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-teal-900 p-12 rounded-xl shadow-xl w-[500px]">
+        <!-- Logo Circle -->
+        <div class="mx-auto w-32 h-32 bg-white rounded-full mb-10 overflow-hidden">
+            <img src="https://via.placeholder.com/128" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        
+        <!-- Login Form -->
+        <form id="loginForm" method="POST" class="space-y-8">
+            <!-- Email Input -->
+            <div class="relative">
+                <input 
+                    type="email" 
+                    id="email"
+                    name="email"
+                    placeholder="Email" 
+                    class="w-full bg-teal-800 text-white placeholder-gray-300 px-6 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 text-lg"
+                    required
+                >
+            </div>
+            
+            <!-- Password Input -->
+            <div class="relative">
+                <input 
+                    type="password"
+                    id="password"
+                    name="password" 
+                    placeholder="Password" 
+                    class="w-full bg-teal-800 text-white placeholder-gray-300 px-6 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 text-lg"
+                    required
+                >
+            </div>
+            
+            <!-- Error Message -->
+            <p id="errorMessage" class="text-red-500 text-center hidden">Identifiants incorrects</p>
+            
+            <!-- Sign In Button -->
+            <button 
+                type="submit" 
+                class="w-full bg-teal-800 text-white py-4 rounded-lg hover:bg-teal-700 transition duration-300 italic text-lg font-semibold"
+            >
+                SIGN IN
+            </button>
+        </form>
+    </div>
+    <script type="module" src="./src/Fetch/auth.js"></script>
+</body>
+</html>

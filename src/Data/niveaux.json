@@ -1,0 +1,13 @@
+{
+    "niveaux": [
+      {
+        "id": "N001",
+        "nom": "Première Année"
+      },
+      {
+        "id": "N002",
+        "nom": "Deuxième Année"
+      }
+    ]
+  }
+  

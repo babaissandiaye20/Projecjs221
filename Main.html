@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>École 221</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="flex flex-col sm:flex-row min-h-screen bg-slate-100">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-full sm:w-64 bg-teal-900 transition-all duration-300 overflow-hidden">
+            <div class="p-4 flex justify-center sm:justify-start">
+                <div id="logo-container" class="w-20 sm:w-32 h-20 sm:h-32 bg-gray-200 rounded-full overflow-hidden">
+                    <img src="/image/kaneki.jpg" alt="École logo" class="w-full h-full object-cover">
+                </div>
+            </div>
+            
+            <div class="mt-8 space-y-4 px-4">
+                <button class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-plus-circle text-xl"></i>
+                    <span class="menu-text whitespace-nowrap">AJOUTER COURS</span>
+                </button>
+                
+                <button class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-list text-xl"></i>
+                    <span class="menu-text whitespace-nowrap">LIST DES COURS</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1">
+            <header class="bg-teal-600 p-4 flex justify-between items-center">
+                <button id="menu-toggle" class="text-white p-2 rounded hover:bg-teal-700">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <h1 class="text-white text-2xl font-bold">ECOLE 221</h1>
+                
+                <div class="relative">
+                    <button id="profile-toggle" class="bg-slate-200 h-12 w-12 rounded-full flex items-center justify-center hover:bg-slate-300">
+                        <span class="text-teal-900">SD</span>
+                    </button>
+                    
+                    <!-- Menu déroulant -->
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-64 bg-teal-800 rounded-lg shadow-lg overflow-hidden">
+                        <div class="p-4">
+                            <!-- Image de profil -->
+                            <div class="flex justify-center mb-4">
+                                <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
+                                    <img src="/image/kaneki.jpg" alt="Profile" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                            
+                            <!-- Options du menu -->
+                            <div class="space-y-2">
+                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                                    <i class="fas fa-user text-white"></i>
+                                    <span class="text-white">Sidy Diop</span>
+                                </a>
+                                
+                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                                    <i class="fas fa-envelope text-white"></i>
+                                    <span class="text-white">sididiop53@gmail.com</span>
+                                </a>
+                                
+                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                                    <i class="fas fa-code text-white"></i>
+                                    <span class="text-white">Licence 3 Dev web/Mobile</span>
+                                </a>
+                                
+                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                                    <i class="fas fa-edit text-white"></i>
+                                    <span class="text-white">Modifier mon profil</span>
+                                </a>
+                                
+                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-red-500 hover:bg-red-600">
+                                    <i class="fas fa-sign-out-alt text-white"></i>
+                                    <span class="text-white">Se Déconnecter</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-6 bg-slate-100">
+                <div class="bg-slate-200 p-4 rounded-lg mb-4">
+                    <h2 class="text-xl flex items-center space-x-2 text-teal-900">
+                        <i class="fas fa-list"></i>
+                        <span>LISTE DES COURS</span>
+                    </h2>
+                </div>
+                
+                <div class="bg-teal-900 rounded-lg overflow-hidden">
+                    <table class="w-full">
+                        <thead class="bg-teal-800 text-white">
+                            <tr>
+                                <th class="p-4 text-left">Date</th>
+                                <th class="p-4 text-left">Libellé</th>
+                                <th class="p-4 text-left">Nombre d'heure(H)</th>
+                                <th class="p-4 text-left">Sessions</th>
+                                <th class="p-4 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-white divide-y divide-teal-800">
+                            <tr>
+                                <td class="p-4">17/12/2024</td>
+                                <td class="p-4">PHP</td>
+                                <td class="p-4">12</td>
+                                <td class="p-4">
+                                    <i class="fas fa-copy cursor-pointer"></i>
+                                </td>
+                                <td class="p-4">
+                                    <i class="fas fa-ellipsis-v cursor-pointer"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-4">18/12/2024</td>
+                                <td class="p-4">NodeJs</td>
+                                <td class="p-4">20</td>
+                                <td class="p-4">
+                                    <i class="fas fa-copy cursor-pointer"></i>
+                                </td>
+                                <td class="p-4">
+                                    <i class="fas fa-ellipsis-v cursor-pointer"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-4">19/12/2024</td>
+                                <td class="p-4">Laravel</td>
+                                <td class="p-4">180</td>
+                                <td class="p-4">
+                                    <i class="fas fa-copy cursor-pointer"></i>
+                                </td>
+                                <td class="p-4">
+                                    <i class="fas fa-ellipsis-v cursor-pointer"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="p-4 flex justify-center items-center space-x-4">
+                        <button class="bg-slate-200/20 p-2 rounded-lg hover:bg-slate-200/30">
+                            <i class="fas fa-chevron-left text-white"></i>
+                        </button>
+                        <span class="text-white">1-2</span>
+                        <button class="bg-slate-200/20 p-2 rounded-lg hover:bg-slate-200/30">
+                            <i class="fas fa-chevron-right text-white"></i>
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+ <script src="src/main.js"></script>
+ <script src="src/Fetch/user-profile.js"></script>
+</body>
+</html>

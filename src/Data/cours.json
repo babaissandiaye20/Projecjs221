@@ -1,0 +1,22 @@
+{
+    "cours": [
+      {
+        "id": "CR001",
+        "dateCours": "2024-01-15",
+        "heureDebut": "08:00",
+        "heureFin": "10:00",
+        "professeurId": "P001",
+        "classeId": "C001",
+        "semestreId": "S001"
+      },
+      {
+        "id": "CR002",
+        "dateCours": "2024-01-15",
+        "heureDebut": "10:15",
+        "heureFin": "12:15",
+        "professeurId": "P002",
+        "classeId": "C001",
+        "semestreId": "S001"
+      }
+    ]
+  }

@@ -1,0 +1,16 @@
+{
+    "absences": [
+      {
+        "id": "A001",
+        "dateAbs": "2024-01-15",
+        "etudiantId": "E001",
+        "seanceId": "SE001"
+      },
+      {
+        "id": "A002",
+        "dateAbs": "2024-01-22",
+        "etudiantId": "E002",
+        "seanceId": "SE002"
+      }
+    ]
+  }

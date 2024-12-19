@@ -1,0 +1,123 @@
+{
+  "etudiants": [
+    {
+      "id": "E001",
+      "matricule": "20230001",
+      "nomComplet": "Baba Issa Ndiaye",
+      "adress": "Ouakam",
+      "login": "babaissandiaye242@gmail.com",
+      "mdp": "passer123",
+      "classeId": "C001"
+    },
+    {
+      "id": "E002",
+      "matricule": "20230002",
+      "nomComplet": "Getchar Diallo",
+      "adress": "Liberté 4",
+      "login": "getchardiallo@gmail.com",
+      "mdp": "passer123",
+      "classeId": "C001"
+    }
+  ],
+
+  
+    "absences": [
+      {
+        "id": "A001",
+        "dateAbs": "2024-01-15",
+        "etudiantId": "E001",
+        "seanceId": "SE001"
+      },
+      {
+        "id": "A002",
+        "dateAbs": "2024-01-22",
+        "etudiantId": "E002",
+        "seanceId": "SE002"
+      }
+    ],
+    "classes": [
+      {
+        "id": "C001",
+        "nom": "Classe A",
+        "niveauId": "N001"
+      },
+      {
+        "id": "C002",
+        "nom": "Classe B",
+        "niveauId": "N001"
+      }
+    ],
+    "cours": [
+      {
+        "id": "CR001",
+        "dateCours": "2024-01-15",
+        "heureDebut": "08:00",
+        "heureFin": "10:00",
+        "professeurId": "P001",
+        "classeId": "C001",
+        "semestreId": "S001"
+      },
+      {
+        "id": "CR002",
+        "dateCours": "2024-01-15",
+        "heureDebut": "10:15",
+        "heureFin": "12:15",
+        "professeurId": "P002",
+        "classeId": "C001",
+        "semestreId": "S001"
+      }
+    ],
+    "niveaux": [
+      {
+        "id": "N001",
+        "nom": "Première Année"
+      },
+      {
+        "id": "N002",
+        "nom": "Deuxième Année"
+      }
+    ],
+
+"professeurs": [
+    {
+      "id": "P001",
+      "nom": "Dubois",
+      "prenom": "Pierre",
+      "grade": "Professeur",
+      "specialite": "Mathématiques"
+    },
+    {
+      "id": "P002",
+      "nom": "Lambert",
+      "prenom": "Sophie",
+      "grade": "Maître de conférences",
+      "specialite": "Informatique"
+    }
+  ],
+  "seances": [
+    {
+      "id": "SE001",
+      "date": "2024-01-15",
+      "coursId": "CR001"
+    },
+    {
+      "id": "SE002",
+      "date": "2024-01-22",
+      "coursId": "CR001"
+    }
+  ],
+
+  "semestres": [
+    {
+      "id": "S001",
+      "nom": "Semestre 1",
+      "etat": "en_cours"
+    },
+    {
+      "id": "S002",
+      "nom": "Semestre 2",
+      "etat": "à_venir"
+    }
+  ]
+
+}

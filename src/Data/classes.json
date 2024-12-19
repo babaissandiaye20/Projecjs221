@@ -1,0 +1,15 @@
+{
+    "classes": [
+      {
+        "id": "C001",
+        "nom": "Classe A",
+        "niveauId": "N001"
+      },
+      {
+        "id": "C002",
+        "nom": "Classe B",
+        "niveauId": "N001"
+      }
+    ]
+  }
+  
