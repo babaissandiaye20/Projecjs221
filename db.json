@@ -51,8 +51,6 @@
       {
         "id": "CR001",
         "dateCours": "2024-01-15",
-        "heureDebut": "08:00",
-        "heureFin": "10:00",
         "professeurId": "P001",
         "classeId": "C001",
         "semestreId": "S001"
@@ -60,8 +58,6 @@
       {
         "id": "CR002",
         "dateCours": "2024-01-15",
-        "heureDebut": "10:15",
-        "heureFin": "12:15",
         "professeurId": "P002",
         "classeId": "C001",
         "semestreId": "S001"
@@ -97,13 +93,27 @@
   "seances": [
     {
       "id": "SE001",
-      "date": "2024-01-15",
+      "date": "2024-12-19",
+      "heureDebut": "08:00",
+      "heureFin": "10:00",
+      "classeId": "C001",
       "coursId": "CR001"
     },
     {
       "id": "SE002",
-      "date": "2024-01-22",
+      "date": "2024-12-22",
+      "heureDebut": "08:00",
+      "heureFin": "10:00",
+      "classeId": "C002",
       "coursId": "CR001"
+    },
+    {
+      "id": "SE002",
+      "date": "2024-12-22",
+      "heureDebut": "08:00",
+      "heureFin": "10:00",
+      "classeId": "C002",
+      "coursId": "CR002"
     }
   ],
 

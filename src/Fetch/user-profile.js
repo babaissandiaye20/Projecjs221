@@ -1,4 +1,5 @@
 // Fonction pour obtenir les initiales à partir du nom complet
+  
 function getInitials(nomComplet) {
     if (!nomComplet) return '';
     return nomComplet
@@ -9,7 +10,7 @@ function getInitials(nomComplet) {
 }
 
 // Fonction pour mettre à jour l'interface utilisateur avec les informations de l'utilisateur
-function updateUserInterface() {
+  function updateUserInterface() {
     const utilisateurJSON = sessionStorage.getItem('utilisateur');
     if (!utilisateurJSON) {
         // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
@@ -36,15 +37,22 @@ function updateUserInterface() {
         if (emailElement) emailElement.textContent = utilisateur.login;
 
         // Ajouter un gestionnaire pour la déconnexion
-        const logoutButton = profileMenu.querySelector('a:last-child');
-        if (logoutButton) {
-            logoutButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                deconnexion();
-            });
-        }
+        
     }
-}
+   
+        }
+        function deconnexion() {
+            sessionStorage.removeItem('utilisateur');
+            
+            window.location.href = 'login.html';
+        }
+        
 
+        const logoutButton =  document.getElementById("logout");
+        logoutButton.addEventListener('click', () => {
+        
+            deconnexion();
+        });
 // Exécuter la mise à jour au chargement de la page
 document.addEventListener('DOMContentLoaded', updateUserInterface);
+export {updateUserInterface};

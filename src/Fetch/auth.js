@@ -59,19 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Vérification si déjà connecté
-    if (estConnecte()) {
+  /*   if (estConnecte()) {
         window.location.href = 'Main.html';
-    }
+    } */
 });
 export function estConnecte() {
     const utilisateur = sessionStorage.getItem('utilisateur');
     return utilisateur !== null && utilisateur !== 'undefined';
 }
 
-export function deconnexion() {
+/* function deconnexion() {
     sessionStorage.removeItem('utilisateur');
-    history.pushState({}, '', 'login.html');
+    
     window.location.href = 'login.html';
-}
+} */
 
 export { verifierCredentials, connexion };

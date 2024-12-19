@@ -1,3 +1,5 @@
+
+
 const menuToggle = document.getElementById('menu-toggle');
 const sidebar = document.getElementById('sidebar');
 const logoContainer = document.getElementById('logo-container');
