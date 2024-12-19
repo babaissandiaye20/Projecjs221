@@ -37,11 +37,64 @@ async function fetchStudentCourses() {
 }
 
 // Configuration de la pagination
-const ITEMS_PER_PAGE = 5; // Nombre d'éléments par page
+const ITEMS_PER_PAGE = 5;
+let currentPage = 1;
+let totalPages = 0;
+let allCourses = [];
 
-// Fonction pour gérer la pagination
-function paginate(array, page_size, page_number) {
-    return array.slice((page_number - 1) * page_size, page_number * page_size);
+// Fonction pour obtenir les éléments de la page courante
+function getCurrentPageItems() {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return allCourses.slice(startIndex, endIndex);
+}
+
+// Fonction pour mettre à jour les contrôles de pagination
+function updatePaginationControls() {
+    const paginationSpan = document.querySelector('.text-white');
+    const prevButton = document.querySelector('.fa-chevron-left').parentElement;
+    const nextButton = document.querySelector('.fa-chevron-right').parentElement;
+
+    paginationSpan.textContent = `${currentPage}-${totalPages}`;
+
+    // Désactiver/activer les boutons de navigation
+    prevButton.disabled = currentPage === 1;
+    nextButton.disabled = currentPage === totalPages;
+
+    // Mettre à jour les styles des boutons
+    prevButton.style.opacity = currentPage === 1 ? '0.5' : '1';
+    nextButton.style.opacity = currentPage === totalPages ? '0.5' : '1';
+}
+
+function renderCoursesTable(cours) {
+    const tbody = document.querySelector('tbody');
+    tbody.innerHTML = '';
+
+    cours.forEach(cours => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="p-4">${new Date(cours.dateCours).toLocaleDateString('fr-FR')}</td>
+            <td class="p-4">${cours.professeur.specialite}</td>
+            <td class="p-4">${cours.seances.reduce((total, seance) => {
+                const debut = new Date(`2000-01-01T${seance.heureDebut}`);
+                const fin = new Date(`2000-01-01T${seance.heureFin}`);
+                return total + (fin - debut) / (1000 * 60 * 60);
+            }, 0)}</td>
+            <td class="p-4">
+                <i class="fas fa-copy cursor-pointer hover:text-gray-300" data-cours-id="${cours.id}"></i>
+            </td>
+            <td class="p-4">
+                <i class="fas fa-ellipsis-v cursor-pointer hover:text-gray-300" data-cours-id="${cours.id}"></i>
+            </td>
+        `;
+        tbody.appendChild(row);
+
+        // Ajouter l'écouteur d'événements pour l'icône de copie
+        const copyIcon = row.querySelector('.fa-copy');
+        copyIcon.addEventListener('click', () => showSessions(cours));
+    });
+
+    updatePaginationControls();
 }
 
 // Création du modal pour les sessions
@@ -92,15 +145,20 @@ function showSessions(cours) {
     const sessionsContainer = modal.querySelector('#sessionsContainer');
     const modalCoursTitle = modal.querySelector('#modalCoursTitle');
     
+    // Mise à jour du titre
     modalCoursTitle.textContent = `Cours: ${cours.professeur.specialite}`;
+    
+    // Vider le conteneur des sessions
     sessionsContainer.innerHTML = '';
     
+    // Trier les séances par date et heure
     const seancesTriees = [...cours.seances].sort((a, b) => {
         const dateA = new Date(a.date + 'T' + a.heureDebut);
         const dateB = new Date(b.date + 'T' + b.heureDebut);
         return dateA - dateB;
     });
 
+    // Créer une carte pour chaque session
     seancesTriees.forEach(seance => {
         const date = new Date(seance.date).toLocaleDateString('fr-FR');
         const debut = seance.heureDebut.substring(0, 5);
@@ -117,90 +175,43 @@ function showSessions(cours) {
         sessionsContainer.appendChild(sessionCard);
     });
 
+    // Afficher le modal
     modal.classList.remove('hidden');
-}
-
-// Fonction pour mettre à jour la pagination
-function updatePagination(currentPage, totalPages) {
-    const paginationContainer = document.querySelector('.pagination');
-    paginationContainer.innerHTML = `
-        <button class="bg-slate-200/20 p-2 rounded-lg hover:bg-slate-200/30 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" 
-                ${currentPage === 1 ? 'disabled' : ''} 
-                data-action="prev">
-            <i class="fas fa-chevron-left text-white"></i>
-        </button>
-        <span class="text-white">${currentPage}-${totalPages}</span>
-        <button class="bg-slate-200/20 p-2 rounded-lg hover:bg-slate-200/30 ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}" 
-                ${currentPage === totalPages ? 'disabled' : ''} 
-                data-action="next">
-            <i class="fas fa-chevron-right text-white"></i>
-        </button>
-    `;
-}
-
-function renderCoursesTable(cours, currentPage = 1) {
-    const tbody = document.querySelector('tbody');
-    tbody.innerHTML = '';
-
-    const totalPages = Math.ceil(cours.length / ITEMS_PER_PAGE);
-    const paginatedCours = paginate(cours, ITEMS_PER_PAGE, currentPage);
-
-    paginatedCours.forEach(cours => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td class="p-4">${new Date(cours.dateCours).toLocaleDateString('fr-FR')}</td>
-            <td class="p-4">${cours.professeur.specialite}</td>
-            <td class="p-4">${cours.seances.reduce((total, seance) => {
-                const debut = new Date(`2000-01-01T${seance.heureDebut}`);
-                const fin = new Date(`2000-01-01T${seance.heureFin}`);
-                return total + (fin - debut) / (1000 * 60 * 60);
-            }, 0)}</td>
-            <td class="p-4">
-                <i class="fas fa-copy cursor-pointer hover:text-gray-300" data-cours-id="${cours.id}"></i>
-            </td>
-            <td class="p-4">
-                <i class="fas fa-ellipsis-v cursor-pointer hover:text-gray-300" data-cours-id="${cours.id}"></i>
-            </td>
-        `;
-        tbody.appendChild(row);
-
-        // Ajouter l'écouteur d'événements pour l'icône de copie
-        const copyIcon = row.querySelector('.fa-copy');
-        copyIcon.addEventListener('click', () => showSessions(cours));
-    });
-
-    updatePagination(currentPage, totalPages);
-
-    // Gestionnaires d'événements pour la pagination
-    const paginationContainer = document.querySelector('.pagination');
-    paginationContainer.addEventListener('click', (e) => {
-        const button = e.target.closest('button');
-        if (!button || button.disabled) return;
-
-        if (button.dataset.action === 'prev') {
-            currentPage > 1 && renderCoursesTable(cours, currentPage - 1);
-        } else if (button.dataset.action === 'next') {
-            currentPage < totalPages && renderCoursesTable(cours, currentPage + 1);
-        }
-    });
 }
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        createSessionModal();
-        const cours = await fetchStudentCourses();
+        createSessionModal(); // Créer le modal au chargement
+        allCourses = await fetchStudentCourses();
         
-        // Ajouter le conteneur de pagination s'il n'existe pas déjà
-        if (!document.querySelector('.pagination')) {
-            const paginationDiv = document.createElement('div');
-            paginationDiv.className = 'pagination p-4 flex justify-center items-center space-x-4';
-            document.querySelector('.bg-teal-900').appendChild(paginationDiv);
-        }
+        // Calculer le nombre total de pages
+        totalPages = Math.ceil(allCourses.length / ITEMS_PER_PAGE);
         
-        renderCoursesTable(cours);
+        // Afficher la première page
+        renderCoursesTable(getCurrentPageItems());
+
+        // Ajouter les écouteurs d'événements pour la pagination
+        const prevButton = document.querySelector('.fa-chevron-left').parentElement;
+        const nextButton = document.querySelector('.fa-chevron-right').parentElement;
+
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderCoursesTable(getCurrentPageItems());
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderCoursesTable(getCurrentPageItems());
+            }
+        });
+
     } catch (error) {
         console.error('Erreur lors de l\'initialisation:', error);
+        // Afficher un message d'erreur à l'utilisateur
     }
 });
 
