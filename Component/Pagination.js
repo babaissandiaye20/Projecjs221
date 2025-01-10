@@ -1,4 +1,5 @@
-class Pagination {
+// pagination.js
+ class Pagination {
     constructor(options) {
         this.itemsPerPage = options.itemsPerPage;
         this.totalItems = options.totalItems;
@@ -27,7 +28,10 @@ class Pagination {
     }
 
     bindEvents(container) {
-        container.querySelector('.pagination-prev').addEventListener('click', () => {
+        const prevButton = container.querySelector('.pagination-prev');
+        const nextButton = container.querySelector('.pagination-next');
+
+        prevButton.addEventListener('click', () => {
             if (this.currentPage > 1) {
                 this.currentPage--;
                 this.onPageChange(this.currentPage);
@@ -35,7 +39,7 @@ class Pagination {
             }
         });
 
-        container.querySelector('.pagination-next').addEventListener('click', () => {
+        nextButton.addEventListener('click', () => {
             if (this.currentPage < this.totalPages) {
                 this.currentPage++;
                 this.onPageChange(this.currentPage);
@@ -51,7 +55,9 @@ class Pagination {
 
     updateTotalItems(newTotal) {
         this.totalItems = newTotal;
-        this.currentPage = Math.min(this.currentPage, this.totalPages);
+        if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages;
+        }
     }
 }
-export {Pagination  };
+export default Pagination;

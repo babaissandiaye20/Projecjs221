@@ -42,7 +42,7 @@
                     <span class="menu-text whitespace-nowrap">AJOUTER COURS</span>
                 </button>
                 
-                <a href="main.html" class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                <a href="Main.html" class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
                     <i class="fas fa-list text-xl"></i>
                     <span class="menu-text whitespace-nowrap">LIST DES COURS</span>
                 </a>
@@ -63,53 +63,48 @@
                 
                 <h1 class="text-white text-2xl font-bold">ECOLE 221</h1>
                 
-                <div class="relative">
-                    <button id="profile-toggle" class="bg-slate-200 h-12 w-12 rounded-full flex items-center justify-center hover:bg-slate-300">
-                        <span class="text-teal-900">SD</span>
-                    </button>
-                    
-                    <!-- Menu déroulant -->
-                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-64 bg-teal-800 rounded-lg shadow-lg overflow-hidden">
-                        <div class="p-4">
-                            <!-- Image de profil -->
-                            <div class="flex justify-center mb-4">
-                                <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
-                                    <img src="/image/kaneki.jpg" alt="Profile" class="w-full h-full object-cover">
-                                </div>
-                            </div>
-                            
-                            <!-- Options du menu -->
-                            <div class="space-y-2">
-                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
-                                    <i class="fas fa-user text-white"></i>
-                                    <span class="text-white">Sidy Diop</span>
-                                </a>
-                                
-                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
-                                    <i class="fas fa-envelope text-white"></i>
-                                    <span class="text-white">sididiop53@gmail.com</span>
-                                </a>
-                                
-                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
-                                    <i class="fas fa-code text-white"></i>
-                                    <span class="text-white">Licence 3 Dev web/Mobile</span>
-                                </a>
-                                
-                                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
-                                    <i class="fas fa-edit text-white"></i>
-                                    <span class="text-white">Modifier mon profil</span>
-                                </a>
-                                <button id="logout">
-                                    <i class="fas fa-sign-out-alt text-white"></i>
-                                    Se Déconnecter
-                                </button>
-                            
-                                   
-                                
-                            </div>
-                        </div>
-                    </div>
+               <div class="relative">
+    <button id="profile-toggle" class="bg-slate-200 h-12 w-12 rounded-full flex items-center justify-center hover:bg-slate-300">
+        <span class="text-teal-900">SD</span>
+    </button>
+    
+    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-64 bg-teal-800 rounded-lg shadow-lg overflow-hidden">
+        <div class="p-4">
+            <div class="flex justify-center mb-4">
+                <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
+                    <img src="/image/default-avatar.jpg" alt="Profile" class="w-full h-full object-cover">
                 </div>
+            </div>
+            
+            <div class="space-y-2">
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-user text-white"></i>
+                    <span class="user-name text-white">Nom de l'utilisateur</span>
+                </a>
+                
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-envelope text-white"></i>
+                    <span class="user-email text-white">email@ecole.com</span>
+                </a>
+                
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-graduation-cap text-white"></i>
+                    <span class="user-role text-white">Rôle</span>
+                </a>
+                
+                <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-edit text-white"></i>
+                    <span class="text-white">Modifier mon profil</span>
+                </a>
+
+                <button id="logout" class="w-full flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-sign-out-alt text-white"></i>
+                    <span class="text-white">Se Déconnecter</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
             </header>
 
             <main class="p-6 bg-slate-100">

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des professeurs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+        }
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+    <div class="flex flex-col sm:flex-row min-h-screen bg-slate-100">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-full sm:w-64 bg-teal-900 transition-all duration-300 overflow-hidden">
+            <div class="p-4 flex justify-center sm:justify-start">
+                <div id="logo-container" class="w-20 sm:w-32 h-20 sm:h-32 bg-gray-200 rounded-full overflow-hidden">
+                    <img src="/image/kaneki.jpg" alt="École logo" class="w-full h-full object-cover">
+                </div>
+            </div>
+            
+            <div class="mt-8 space-y-4 px-4">
+                <button class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-plus-circle text-xl"></i>
+                    <span class="menu-text whitespace-nowrap">AJOUTER ANNÉE</span>
+                </button>
+                
+                <a href="annees.html" class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-list text-xl"></i>
+                    <span class="menu-text whitespace-nowrap">LISTE DES ANNÉES</span>
+                </a>
+                
+                <a href="professeurs.html" class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                    <i class="fas fa-chalkboard-teacher text-xl"></i>
+                    <span class="menu-text whitespace-nowrap">PROFESSEURS</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1">
+            <header class="bg-teal-600 p-4 flex justify-between items-center">
+                <button id="menu-toggle" class="text-white p-2 rounded hover:bg-teal-700">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <h1 class="text-white text-2xl font-bold">ECOLE 221</h1>
+                
+                <div class="relative">
+                    <button id="profile-toggle" class="bg-slate-200 h-12 w-12 rounded-full flex items-center justify-center hover:bg-slate-300">
+                        <span class="text-teal-900">SD</span>
+                    </button>
+                    
+                    <!-- Menu déroulant -->
+                   <!-- Dans le HTML, remplacer la partie du menu profil par : -->
+<div id="profile-menu" class="hidden absolute right-0 mt-2 w-64 bg-teal-800 rounded-lg shadow-lg overflow-hidden">
+    <div class="p-4">
+        <div class="flex justify-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
+                <img src="/image/kaneki.jpg" alt="Profile" class="w-full h-full object-cover">
+            </div>
+        </div>
+        
+        <div class="space-y-2">
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                <i class="fas fa-user text-white"></i>
+                <span class="text-white user-name">Chargement...</span>
+            </a>
+            
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                <i class="fas fa-envelope text-white"></i>
+                <span class="text-white user-email">Chargement...</span>
+            </a>
+            
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                <i class="fas fa-code text-white"></i>
+                <span class="text-white user-role">Chargement...</span>
+            </a>
+            
+            <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
+                <i class="fas fa-edit text-white"></i>
+                <span class="text-white">Modifier mon profil</span>
+            </a>
+            <button id="logout" class="flex items-center space-x-3 p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30 w-full text-white">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Se Déconnecter</span>
+            </button>
+        </div>
+    </div>
+</div>
+                </div>
+            </header>
+
+            <main class="p-6 bg-slate-100">
+                <div class="bg-slate-200 p-4 rounded-lg mb-4">
+                    <h2 class="text-xl flex items-center space-x-2 text-teal-900">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>LISTE DES PROFESSEURS</span>
+                    </h2>
+                </div>
+
+                <div class="mb-6">
+                    <select id="annee-filter" class="w-full sm:w-64 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600">
+                        <!-- Les années seront ajoutées dynamiquement -->
+                    </select>
+                </div>
+                
+                <div id="professeurs-table"></div>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+    <script type="module" src="src/Fetch/user-profile.js"></script>
+    <script type="module" src="src/Fetch/professeurs.js"></script>
+</body>
+</html>

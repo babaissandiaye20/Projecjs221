@@ -1,21 +1,37 @@
-// auth.js
 import { getData, postData } from './fetch.js';
 
 async function verifierCredentials(email, password) {
     try {
         console.log('Vérification des credentials...');
-        const etudiants = await getData('etudiants');
-        console.log('Étudiants récupérés:', etudiants);
         
+        // Récupérer tous les types d'utilisateurs
+        const etudiants = await getData('etudiants');
+        const professeurs = await getData('professeurs');
+        const responsablesPedagogiques = await getData('responsables_pedagogiques');
+        
+        // Vérifier dans chaque groupe d'utilisateurs
         const etudiant = etudiants.find(e => 
             e.login === email && e.mdp === password
         );
-        console.log('Étudiant trouvé:', etudiant);
+        
+        const professeur = professeurs.find(p => 
+            p.login === email && p.mdp === password
+        );
+        
+        const responsablePedagogique = responsablesPedagogiques.find(rp => 
+            rp.login === email && rp.mdp === password
+        );
 
-        if (etudiant) {
-            sessionStorage.setItem('utilisateur', JSON.stringify(etudiant));
+        // Retourner le premier utilisateur trouvé
+        const utilisateur = etudiant || professeur || responsablePedagogique;
+        
+        if (utilisateur) {
+            // Stocker l'utilisateur et son rôle
+            sessionStorage.setItem('utilisateur', JSON.stringify(utilisateur));
+            sessionStorage.setItem('role', utilisateur.role);
             return true;
         }
+        
         return false;
     } catch (error) {
         console.error('Erreur lors de la vérification des credentials:', error);
@@ -24,8 +40,8 @@ async function verifierCredentials(email, password) {
 }
 
 async function connexion(event) {
-    event.preventDefault(); // Empêche la soumission normale du formulaire
-    event.stopPropagation(); // Arrête la propagation de l'événement
+    event.preventDefault();
+    event.stopPropagation();
     
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -33,13 +49,25 @@ async function connexion(event) {
     try {
         const estValide = await verifierCredentials(email, password);
         if (estValide) {
-            // Utiliser history.pushState pour changer l'URL sans rechargement
-            // Charger le contenu de main.html via AJAX ou modifier le DOM directement
-            window.location.href = 'Main.html';
+            const utilisateur = JSON.parse(sessionStorage.getItem('utilisateur'));
+            
+            // Rediriger vers différentes pages selon le rôle
+            switch(utilisateur.role) {
+                case 'ETUDIANT':
+                    window.location.href = 'Main.html';
+                    break;
+                case 'PROF':
+                    window.location.href = 'Main.html';
+                    break;
+                case 'RP':
+                    window.location.href = 'annees.html';
+                    break;
+                default:
+                    window.location.href = 'Main.html';
+            }
         } else {
             const errorMessage = document.getElementById('errorMessage');
             errorMessage.classList.remove('hidden');
-            // Reste sur la même page sans redirection
             return false;
         }
     } catch (error) {
@@ -52,26 +80,39 @@ async function connexion(event) {
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('loginForm');
     if (form) {
-        // Utiliser l'événement submit plutôt que click
         form.addEventListener('submit', (e) => {
             connexion(e);
         });
     }
-
-    // Vérification si déjà connecté
-  /*   if (estConnecte()) {
-        window.location.href = 'Main.html';
-    } */
+    
+    if (estConnecte()) {
+        const utilisateur = JSON.parse(sessionStorage.getItem('utilisateur'));
+        // Redirection basée sur le rôle
+        switch(utilisateur.role) {
+            case 'ETUDIANT':
+                window.location.href = 'Main.html';
+                break;
+            case 'PROF':
+                window.location.href = 'MainProf.html';
+                break;
+            case 'RP':
+                window.location.href = 'annee.html';
+                break;
+            default:
+                window.location.href = 'Main.html';
+        }
+    }
 });
+
 export function estConnecte() {
     const utilisateur = sessionStorage.getItem('utilisateur');
     return utilisateur !== null && utilisateur !== 'undefined';
 }
 
-/* function deconnexion() {
+export function deconnexion() {
     sessionStorage.removeItem('utilisateur');
-    
+    sessionStorage.removeItem('role');
     window.location.href = 'login.html';
-} */
+}
 
 export { verifierCredentials, connexion };

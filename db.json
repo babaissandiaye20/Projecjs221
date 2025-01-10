@@ -1,4 +1,107 @@
 {
+  "annees_scolaires": [
+    {
+      "id": "AS001",
+      "libelle": "2023-2024",
+      "dateDebut": "2023-09-01",
+      "dateFin": "2024-07-31",
+      "isActive": true
+    },
+    {
+      "id": "AS002",
+      "libelle": "2024-2025",
+      "dateDebut": "2024-09-01",
+      "dateFin": "2025-07-31",
+      "isActive": false
+    }
+  ],
+  "responsables_pedagogiques": [
+    {
+      "id": "RP001",
+      "nom": "Martin",
+      "prenom": "Jean",
+      "email": "jean.martin@ecole.com",
+      "login": "jean.martin@ecole.com",
+      "mdp": "passer123",
+      "role": "RP"
+    }
+  ],
+  "professeurs": [
+    {
+      "id": "P001",
+      "nom": "Dubois",
+      "prenom": "Pierre",
+      "grade": "Professeur",
+      "specialite": "Java",
+      "email": "pierre.dubois@ecole.com",
+      "login": "pdubois",
+      "mdp": "passer123",
+      "role": "PROF"
+    },
+    {
+      "id": "P002",
+      "nom": "Lambert",
+      "prenom": "Sophie",
+      "grade": "Maître de conférences",
+      "specialite": "Symfony",
+      "email": "sophie.lambert@ecole.com",
+      "login": "sophie.lambert@ecole.com",
+      "mdp": "passer123",
+      "role": "PROF"
+    },
+    {
+      "id": "P003",
+      "nom": "Freak",
+      "prenom": "Ndiaye",
+      "grade": "Maître de conférences",
+      "specialite": "Ruby",
+      "email": "ndiaye.freak@ecole.com",
+      "login": "nfreak",
+      "mdp": "passer123",
+      "role": "PROF"
+    }
+  ],
+  "professeurs_annees": [
+    {
+      "id": "PA001",
+      "professeurId": "P001",
+      "anneeScolaireId": "AS001"
+    },
+    {
+      "id": "PA002",
+      "professeurId": "P002",
+      "anneeScolaireId": "AS001"
+    },
+    {
+      "id": "PA003",
+      "professeurId": "P003",
+      "anneeScolaireId": "AS001"
+    }
+  ],
+  "classes": [
+    {
+      "id": "C001",
+      "nom": "Classe A",
+      "niveauId": "N001"
+    },
+    {
+      "id": "C002",
+      "nom": "Classe B",
+      "niveauId": "N001"
+    }
+  ],
+  "classes_annees": [
+    {
+      "id": "CA001",
+      "classeId": "C001",
+      "anneeScolaireId": "AS001"
+    },
+    {
+      "id": "CA002",
+      "classeId": "C002",
+      "anneeScolaireId": "AS001"
+    }
+  ],
   "etudiants": [
     {
       "id": "E001",
@@ -7,7 +110,7 @@
       "adress": "Ouakam",
       "login": "babaissa242@gmail.com",
       "mdp": "passer123",
-      "classeId": "C001"
+      "role": "ETUDIANT"
     },
     {
       "id": "E002",
@@ -16,78 +119,76 @@
       "adress": "Liberté 4",
       "login": "getchardiallo@gmail.com",
       "mdp": "passer123",
-      "classeId": "C001"
-    }
-  ],
-
-  
-    "absences": [
-      {
-        "id": "A001",
-        "dateAbs": "2024-01-15",
-        "etudiantId": "E001",
-        "seanceId": "SE001"
-      },
-      {
-        "id": "A002",
-        "dateAbs": "2024-01-22",
-        "etudiantId": "E002",
-        "seanceId": "SE002"
-      }
-    ],
-    "classes": [
-      {
-        "id": "C001",
-        "nom": "Classe A",
-        "niveauId": "N001"
-      },
-      {
-        "id": "C002",
-        "nom": "Classe B",
-        "niveauId": "N001"
-      }
-    ],
-    "cours": [
-      {
-        "id": "CR001",
-        "dateCours": "2024-01-15",
-        "professeurId": "P001",
-        "classeId": "C001",
-        "semestreId": "S001"
-      },
-      {
-        "id": "CR002",
-        "dateCours": "2024-01-15",
-        "professeurId": "P002",
-        "classeId": "C001",
-        "semestreId": "S001"
-      }
-    ],
-    "niveaux": [
-      {
-        "id": "N001",
-        "nom": "Première Année"
-      },
-      {
-        "id": "N002",
-        "nom": "Deuxième Année"
-      }
-    ],
-
-"professeurs": [
-    {
-      "id": "P001",
-      "nom": "Dubois",
-      "prenom": "Pierre",
-      "grade": "Professeur",
-      "specialite": "Mathématiques"
+      "role": "ETUDIANT"
     },
     {
-      "id": "P002",
-      "nom": "Lambert",
-      "prenom": "Sophie",
-      "grade": "Maître de conférences",
-      "specialite": "Informatique"
+      "id": "E003",
+      "matricule": "20230003",
+      "nomComplet": "Sidy Diop Baldé",
+      "adress": "Parcelles",
+      "login": "sidydiop@gmail.com",
+      "mdp": "passer123",
+      "role": "ETUDIANT"
+    }
+  ],
+  "etudiants_annees": [
+    {
+      "id": "EA001",
+      "etudiantId": "E001",
+      "classeAnneeId": "CA001",
+      "anneeScolaireId": "AS001"
+    },
+    {
+      "id": "EA002",
+      "etudiantId": "E002",
+      "classeAnneeId": "CA001",
+      "anneeScolaireId": "AS001"
+    },
+    {
+      "id": "EA003",
+      "etudiantId": "E003",
+      "classeAnneeId": "CA002",
+      "anneeScolaireId": "AS001"
+    }
+  ],
+  "cours": [
+    {
+      "id": "CR001",
+      "intitule": "Java Avancé"
+    },
+    {
+      "id": "CR002",
+      "intitule": "Symfony Framework"
+    },
+    {
+      "id": "CR003",
+      "intitule": "Ruby on Rails"
+    }
+  ],
+  "cours_annees": [
+    {
+      "id": "CRA001",
+      "coursId": "CR001",
+      "professeurAnneeId": "PA001",
+      "classeAnneeId": "CA001",
+      "anneeScolaireId": "AS001",
+      "semestreId": "S001"
+    },
+    {
+      "id": "CRA002",
+      "coursId": "CR002",
+      "professeurAnneeId": "PA002",
+      "classeAnneeId": "CA001",
+      "anneeScolaireId": "AS001",
+      "semestreId": "S001"
+    },
+    {
+      "id": "CRA003",
+      "coursId": "CR003",
+      "professeurAnneeId": "PA003",
+      "classeAnneeId": "CA002",
+      "anneeScolaireId": "AS001",
+      "semestreId": "S001"
     }
   ],
   "seances": [
@@ -96,27 +197,49 @@
       "date": "2024-12-19",
       "heureDebut": "08:00",
       "heureFin": "10:00",
-      "classeId": "C001",
-      "coursId": "CR001"
+      "coursAnneeId": "CRA001"
     },
     {
       "id": "SE002",
       "date": "2024-12-22",
       "heureDebut": "08:00",
       "heureFin": "10:00",
-      "classeId": "C002",
-      "coursId": "CR001"
+      "coursAnneeId": "CRA001"
     },
     {
-      "id": "SE002",
+      "id": "SE003",
       "date": "2024-12-22",
       "heureDebut": "08:00",
       "heureFin": "10:00",
-      "classeId": "C002",
-      "coursId": "CR002"
+      "coursAnneeId": "CRA002"
     }
   ],
-
+  "absences": [
+    {
+      "id": "A001",
+      "dateAbs": "2024-01-15",
+      "etudiantAnneeId": "EA001",
+      "seanceId": "SE001",
+      "justifie": false
+    },
+    {
+      "id": "A002",
+      "dateAbs": "2024-01-22",
+      "etudiantAnneeId": "EA002",
+      "seanceId": "SE003",
+      "justifie": true
+    }
+  ],
+  "niveaux": [
+    {
+      "id": "N001",
+      "nom": "Première Année"
+    },
+    {
+      "id": "N002",
+      "nom": "Deuxième Année"
+    }
+  ],
   "semestres": [
     {
       "id": "S001",
@@ -129,5 +252,4 @@
       "etat": "à_venir"
     }
   ]
-
 }

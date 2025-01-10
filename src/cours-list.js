@@ -5,109 +5,78 @@ import { Table } from '../Component/table.js';
 class SessionModal {
     constructor() {
         this.modal = null;
-        this.createModal();
-        this.modal = document.getElementById('sessionModal'); // Set modal after creation
+        this.init();
+    }
+
+    init() {
+        const modalHTML = `
+            <div id="sessionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+                <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 transform transition-all">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-900">Sessions du cours</h3>
+                        <button class="modal-close text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="sessions-list space-y-4 max-h-[60vh] overflow-y-auto"></div>
+                </div>
+            </div>`;
+
+        const existingModal = document.getElementById('sessionModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        this.modal = document.getElementById('sessionModal');
         this.bindEvents();
     }
 
-    createModal() {
-        // First check if modal already exists
-        const existingModal = document.getElementById('sessionModal');
-        if (existingModal) {
-            existingModal.remove(); // Remove existing modal to prevent duplicates
-        }
-
-        const modalHTML = `
-            <div id="sessionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-                <div class="bg-teal-900 rounded-lg p-6 w-full max-w-2xl mx-4">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center space-x-2">
-                            <img src="/api/placeholder/32/32" alt="Session icon" class="w-8 h-8">
-                            <h2 class="text-white text-xl font-bold">SESSION COURS</h2>
-                        </div>
-                        <button id="closeModal" class="text-white hover:text-gray-300">
-                            <i class="fas fa-times text-xl"></i>
-                        </button>
-                    </div>
-                    <h3 id="modalCoursTitle" class="text-white text-lg mb-6">Cours: </h3>
-                    <div id="sessionsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-    }
-
     bindEvents() {
-        if (!this.modal) {
-            console.error('Modal element not found');
-            return;
-        }
-
-        const closeButton = this.modal.querySelector('#closeModal');
-        if (closeButton) {
-            closeButton.addEventListener('click', () => this.hide());
-        }
-
+        this.modal.querySelector('.modal-close').addEventListener('click', () => this.hide());
+        
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) {
                 this.hide();
             }
         });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
+                this.hide();
+            }
+        });
     }
 
-    // Rest of the methods remain the same...
     show(cours) {
-        if (!this.modal) {
-            console.error('Modal element not found');
-            return;
-        }
+        if (!cours || !cours.seances) return;
 
-        const sessionsContainer = this.modal.querySelector('#sessionsContainer');
-        const modalCoursTitle = this.modal.querySelector('#modalCoursTitle');
-        
-        if (!sessionsContainer || !modalCoursTitle) {
-            console.error('Required modal elements not found');
-            return;
-        }
-
-        modalCoursTitle.textContent = `Cours: ${cours.professeur.specialite}`;
-        sessionsContainer.innerHTML = '';
-        
-        const seancesTriees = [...cours.seances].sort((a, b) => {
-            const dateA = new Date(a.date + 'T' + a.heureDebut);
-            const dateB = new Date(b.date + 'T' + b.heureDebut);
-            return dateA - dateB;
-        });
-
-        seancesTriees.forEach(seance => {
-            const date = new Date(seance.date).toLocaleDateString('fr-FR');
-            const debut = seance.heureDebut.substring(0, 5);
-            const fin = seance.heureFin.substring(0, 5);
-
-            const sessionCard = document.createElement('div');
-            sessionCard.className = 'bg-slate-200/20 rounded-lg p-4 text-white';
-            sessionCard.innerHTML = `
-                <div class="text-center">
-                    <div class="font-bold mb-2">${date}</div>
-                    <div class="text-sm">${debut} - ${fin}</div>
+        const sessionsList = this.modal.querySelector('.sessions-list');
+        sessionsList.innerHTML = cours.seances.length > 0 ? 
+            cours.seances.map(seance => `
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">Date:</p>
+                            <p class="font-medium">${new Date(seance.date).toLocaleDateString('fr-FR')}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Horaires:</p>
+                            <p class="font-medium">${seance.heureDebut} - ${seance.heureFin}</p>
+                        </div>
+                    </div>
                 </div>
-            `;
-            sessionsContainer.appendChild(sessionCard);
-        });
+            `).join('') :
+            '<div class="text-center text-gray-500 py-4">Aucune session disponible pour ce cours</div>';
 
         this.modal.classList.remove('hidden');
-        this.modal.classList.add('flex');
     }
 
     hide() {
-        if (!this.modal) {
-            console.error('Modal element not found');
-            return;
-        }
         this.modal.classList.add('hidden');
-        this.modal.classList.remove('flex');
     }
 }
+
 class CoursesList {
     constructor() {
         this.sessionModal = new SessionModal();
@@ -116,30 +85,50 @@ class CoursesList {
                 { 
                     header: 'Date',
                     key: 'dateCours',
-                    render: (item) => new Date(item.dateCours).toLocaleDateString('fr-FR')
+                    render: (item) => new Date(item.date).toLocaleDateString('fr-FR')
                 },
                 {
-                    header: 'Libellé',
+                    header: 'Cours',
+                    key: 'intitule',
+                    render: (item) => item.intitule || 'Non spécifié'
+                },
+                {
+                    header: 'Professeur',
                     key: 'professeur',
-                    render: (item) => item.professeur?.specialite || 'Non spécifié'
+                    render: (item) => `${item.professeur?.nom || ''} ${item.professeur?.prenom || ''} - ${item.professeur?.specialite || 'Non spécifié'}`
                 },
                 {
-                    header: "Nombre d'heure(H)",
+                    header: "Nombre d'heures",
                     key: 'seances',
                     render: (item) => this.calculateTotalHours(item.seances || []).toFixed(1)
                 },
                 {
                     header: 'Sessions',
                     key: 'sessions',
-                    render: (item) => `<i class="fas fa-copy cursor-pointer hover:text-gray-300" data-cours-id="${item.id}" data-action="copy"></i>`
-                },
-                {
-                    header: 'Actions',
-                    key: 'actions',
-                    render: (item) => `<i class="fas fa-ellipsis-v cursor-pointer hover:text-gray-300" data-cours-id="${item.id}" data-action="menu"></i>`
+                    render: (item) => `
+                        <button 
+                            class="show-sessions-btn px-3 py-1 bg-teal-600 text-white rounded hover:bg-teal-700 transition-colors" 
+                            data-course='${JSON.stringify(item).replace(/'/g, "&apos;")}'
+                        >
+                            <i class="fas fa-calendar-alt mr-2"></i>Voir
+                        </button>`
                 }
             ]
         };
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        // Use event delegation for session buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.show-sessions-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const button = e.target.closest('.show-sessions-btn');
+                const courseData = JSON.parse(button.dataset.course.replace(/&apos;/g, "'"));
+                this.sessionModal.show(courseData);
+            }
+        });
     }
 
     calculateTotalHours(seances) {
@@ -150,12 +139,12 @@ class CoursesList {
                 const debut = new Date(`2000-01-01T${seance.heureDebut}`);
                 const fin = new Date(`2000-01-01T${seance.heureFin}`);
                 if (isNaN(debut.getTime()) || isNaN(fin.getTime())) {
-                    console.warn('Invalid time format for seance:', seance);
+                    console.warn('Format d\'heure invalide pour la séance:', seance);
                     return total;
                 }
                 return total + (fin - debut) / (1000 * 60 * 60);
             } catch (error) {
-                console.warn('Error calculating hours for seance:', seance, error);
+                console.warn('Erreur lors du calcul des heures pour la séance:', seance, error);
                 return total;
             }
         }, 0);
@@ -164,79 +153,70 @@ class CoursesList {
     async fetchStudentCourses() {
         try {
             const utilisateur = JSON.parse(sessionStorage.getItem('utilisateur'));
-            if (!utilisateur?.login) {
-                throw new Error('Aucun utilisateur connecté');
-            }
+            if (!utilisateur?.login) throw new Error('Aucun utilisateur connecté');
 
             const etudiants = await getData(`etudiants?login=${utilisateur.login}`);
-            if (!etudiants?.[0]?.classeId) {
-                throw new Error('Étudiant non trouvé ou classe non définie');
-            }
+            if (!etudiants?.[0]) throw new Error('Étudiant non trouvé');
 
-            const cours = await getData(`cours?classeId=${etudiants[0].classeId}`);
-            if (!Array.isArray(cours)) {
-                throw new Error('Format de données de cours invalide');
-            }
+            const etudiantAnnees = await getData(`etudiants_annees?etudiantId=${etudiants[0].id}`);
+            if (!etudiantAnnees?.[0]) throw new Error('Aucune inscription trouvée');
 
-            const coursComplets = await Promise.all(cours.map(async (cours) => {
-                try {
-                    const professeur = await getData(`professeurs/${cours.professeurId}`);
-                    const seances = await getData(`seances?coursId=${cours.id}`);
-                    return { 
-                        ...cours, 
-                        professeur: professeur || { specialite: 'Non spécifié' },
-                        seances: Array.isArray(seances) ? seances : []
-                    };
-                } catch (error) {
-                    console.error(`Erreur lors de la récupération des détails du cours ${cours.id}:`, error);
-                    return { ...cours, professeur: { specialite: 'Non spécifié' }, seances: [] };
-                }
+            const coursAnnees = await getData(`cours_annees?classeAnneeId=${etudiantAnnees[0].classeAnneeId}`);
+            
+            const coursComplets = await Promise.all(coursAnnees.map(async (coursAnnee) => {
+                const [cours, professeurAnnee, seances] = await Promise.all([
+                    getData(`cours/${coursAnnee.coursId}`),
+                    getData(`professeurs_annees/${coursAnnee.professeurAnneeId}`),
+                    getData(`seances?coursAnneeId=${coursAnnee.id}`)
+                ]);
+
+                const professeur = await getData(`professeurs/${professeurAnnee.professeurId}`);
+
+                return {
+                    ...coursAnnee,
+                    ...cours,
+                    date: coursAnnee.dateDebut || new Date().toISOString(),
+                    professeur,
+                    seances: seances || []
+                };
             }));
 
             return coursComplets;
         } catch (error) {
-            console.error('Erreur lors de la récupération des cours:', error);
+            console.error('Erreur:', error);
             throw error;
         }
     }
 
-
     async init() {
         try {
-            console.log('Début de l\'initialisation');
             const tableContainer = document.getElementById('courses-table');
-            console.log('Container trouvé:', tableContainer);
-            
             const courses = await this.fetchStudentCourses();
-            console.log('Cours récupérés pour le rendu:', courses);
-            
-            if (!courses || courses.length === 0) {
-                console.log('Aucun cours à afficher');
+
+            if (!courses?.length) {
                 tableContainer.innerHTML = '<div class="text-center p-4">Aucun cours disponible</div>';
                 return;
             }
-            
+
             this.table = new Table({
                 ...this.tableConfig,
                 container: tableContainer,
                 data: courses,
-                itemsPerPage: 5,
-                onCopyClick: (cours) => this.sessionModal.show(cours)
+                itemsPerPage: 5
             });
-            
-            console.log('Table initialisée, début du rendu');
+
             this.table.render();
-            console.log('Rendu terminé');
         } catch (error) {
-            console.error('Erreur lors de l\'initialisation:', error);
             const tableContainer = document.getElementById('courses-table');
-            if (tableContainer) {
-                tableContainer.innerHTML = `<div class="text-center p-4 text-red-500">Erreur: ${error.message}</div>`;
-            }
+            tableContainer.innerHTML = `
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    <p class="font-bold">Erreur</p>
+                    <p>${error.message}</p>
+                </div>`;
         }
     }
 }
-// Initialisation
+
 document.addEventListener('DOMContentLoaded', () => {
     const coursesList = new CoursesList();
     coursesList.init();
