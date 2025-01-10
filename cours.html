@@ -122,12 +122,18 @@
                     </h2>
                 </div>
 
-                <div class="mb-6">
-                    <select id="annee-filter" class="w-full sm:w-64 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600">
-                        <!-- Les années seront ajoutées dynamiquement -->
-                    </select>
+                <div class="flex relative  justify-between">
+                    <div class="mb-6">
+                        <select id="annee-filter" class="w-full sm:w-64 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600">
+                            <!-- Les années seront ajoutées dynamiquement -->
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <button id="add-cours-btn" class="w-full sm:w-64 p-2 border border-teal-600 rounded-lg text-teal-600 hover:text-teal-900">
+                            Ajouter un cours
+                        </button>
+                    </div>
                 </div>
-                
                 <div id="cours-table"></div>
             </main>
 
@@ -145,10 +151,64 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal d'ajout -->
+        <div id="add-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 w-full max-w-2xl mx-4">
+                <!-- En-tête du modal -->
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Ajouter un nouveau cours</h2>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Formulaire -->
+                <form id="cours-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ID du cours</label>
+                        <input type="text" name="coursId" required pattern="CR[0-9]{3}" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="CR001">
+                        <p class="text-sm text-gray-500 mt-1">Format: CR suivi de 3 chiffres</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Intitulé du cours</label>
+                        <input type="text" name="intitule" required 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="Ex: Java Avancé">
+                    </div>
+
+                    <!-- Boutons du formulaire -->
+                    <div class="flex justify-end space-x-3 mt-6">
+                        <button type="button" onclick="closeModal()" 
+                                class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            Annuler
+                        </button>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
         </div>
     </div>
     <script type="module" src="src/main.js"></script>
     <script type="module" src="src/Fetch/user-profile.js"></script>
     <script type="module" src="src/Fetch/cours.js"></script>
+    <script type="module" src="src/Fetch/postCours.js"></script>
 </body>
 </html>
+
+<script>
+      const modal = document.getElementById('add-modal');
+      const cours_button = document.getElementById('add-cours-btn');
+      const cours_form = document.getElementById('cours-form');
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        cours_form.reset(); 
+    }
+</script>

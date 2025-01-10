@@ -58,3 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialiser l'interface utilisateur
     updateUserInterface();
 });
+
+const cours_button = document.getElementById('add-cours-btn');
+cours_button.addEventListener('click',{
+   
+});
+
+
+console.log(cours_button);
+
+//affichage des infobul icones lors du survol

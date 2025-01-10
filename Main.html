@@ -24,12 +24,25 @@
         .modal-overlay.show .modal-content {
             transform: scale(1);
         }
+        #tooltip {
+        pointer-events: none;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        transform: translateY(-10px);
+    }
+
+    #tooltip.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
     </style>
 </head>
 <body>
     <div class="flex flex-col sm:flex-row min-h-screen bg-slate-100">
         <!-- Sidebar -->
         <div id="sidebar" class="w-full sm:w-64 bg-teal-900 transition-all duration-300 overflow-hidden">
+            <div id="tooltip" class="absolute left-full top-0 ml-2 p-2 bg-gray-800 text-white text-sm rounded shadow hidden"></div>
             <div class="p-4 flex justify-center sm:justify-start">
                 <div id="logo-container" class="w-20 sm:w-32 h-20 sm:h-32 bg-gray-200 rounded-full overflow-hidden">
                     <img src="/image/kaneki.jpg" alt="École logo" class="w-full h-full object-cover">
@@ -128,3 +141,29 @@
  <script type="module" src="src/cours-list.js"></script>
 </body>
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+    const tooltip = document.getElementById("tooltip");
+
+    // Sélectionnez tous les boutons avec icônes
+    const buttons = sidebar.querySelectorAll("button, a");
+
+    buttons.forEach((btn) => {
+        // Ajoutez des événements pour afficher la description
+        btn.addEventListener("mouseenter", (e) => {
+            const description = btn.querySelector(".menu-text")?.innerText || btn.getAttribute("title") || "";
+            tooltip.textContent = description;
+            const rect = btn.getBoundingClientRect();
+            tooltip.style.top = `${rect.top + window.scrollY + rect.height / 2 - tooltip.offsetHeight / 2}px`;
+            tooltip.style.left = `${rect.right + 10}px`;
+            tooltip.classList.add("show");
+        });
+
+        btn.addEventListener("mouseleave", () => {
+            tooltip.classList.remove("show");
+        });
+    });
+});
+</script>

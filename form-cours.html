@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Cours</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <!-- Navigation des formulaires -->
+        <div class="mb-8">
+            <div class="flex space-x-4">
+                <button onclick="showForm('cours')" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="fas fa-book mr-2"></i>Cours
+                </button>
+                <button onclick="showForm('coursAnnuel')" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <i class="fas fa-calendar-alt mr-2"></i>Cours Annuel
+                </button>
+                <button onclick="showForm('seance')" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <i class="fas fa-clock mr-2"></i>Séance
+                </button>
+            </div>
+        </div>
+
+        <!-- Formulaire Cours -->
+        <div id="coursForm" class="form-section bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Ajouter un Cours</h2>
+            <form onsubmit="handleCoursSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">ID Cours</label>
+                    <input type="text" name="coursId" required pattern="CR[0-9]{3}" placeholder="CR001" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="text-sm text-gray-500 mt-1">Format: CR suivi de 3 chiffres (ex: CR001)</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Intitulé</label>
+                    <input type="text" name="intitule" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Enregistrer le Cours
+                </button>
+            </form>
+        </div>
+
+        <!-- Formulaire Cours Annuel -->
+        <div id="coursAnnuelForm" class="form-section bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Ajouter un Cours Annuel</h2>
+            <form onsubmit="handleCoursAnnuelSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">ID Cours Annuel</label>
+                    <input type="text" name="coursAnnuelId" required pattern="CRA[0-9]{3}" placeholder="CRA001"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Cours</label>
+                    <select name="coursId" required 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="">Sélectionner un cours</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Professeur Année</label>
+                        <input type="text" name="professeurAnneeId" required pattern="PA[0-9]{3}" placeholder="PA001"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Classe Année</label>
+                        <input type="text" name="classeAnneeId" required pattern="CA[0-9]{3}" placeholder="CA001"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Année Scolaire</label>
+                        <input type="text" name="anneeScolaireId" required pattern="AS[0-9]{3}" placeholder="AS001"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Semestre</label>
+                        <input type="text" name="semestreId" required pattern="S[0-9]{3}" placeholder="S001"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="actif" checked
+                               class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                        <span class="text-sm font-medium text-gray-700">Actif</span>
+                    </label>
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Enregistrer le Cours Annuel
+                </button>
+            </form>
+        </div>
+
+        <!-- Formulaire Séance -->
+        <div id="seanceForm" class="form-section bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Ajouter une Séance</h2>
+            <form onsubmit="handleSeanceSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">ID Séance</label>
+                    <input type="text" name="seanceId" required pattern="SE[0-9]{3}" placeholder="SE001"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Cours Annuel</label>
+                    <select name="coursAnneeId" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Sélectionner un cours annuel</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input type="date" name="date" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Heure de début</label>
+                        <input type="time" name="heureDebut" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Heure de fin</label>
+                        <input type="time" name="heureFin" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    Enregistrer la Séance
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Données de test
+        const cours = [
+            { id: "CR001", intitule: "Java Avancé" },
+            { id: "CR002", intitule: "Symfony Framework" },
+            { id: "CR003", intitule: "Ruby on Rails" }
+        ];
+
+        const coursAnnees = [
+            { id: "CRA001", coursId: "CR001", professeurAnneeId: "PA001", classeAnneeId: "CA001", 
+              anneeScolaireId: "AS001", semestreId: "S001", actif: true },
+            { id: "CRA002", coursId: "CR002", professeurAnneeId: "PA002", classeAnneeId: "CA001", 
+              anneeScolaireId: "AS001", semestreId: "S001", actif: true }
+        ];
+
+        // Fonctions d'initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeSelects();
+        });
+
+        function initializeSelects() {
+            // Initialiser le select des cours
+            const coursSelect = document.querySelector('select[name="coursId"]');
+            cours.forEach(cours => {
+                const option = new Option(cours.intitule, cours.id);
+                coursSelect.add(option);
+            });
+
+            // Initialiser le select des cours annuels
+            const coursAnnuelSelect = document.querySelector('select[name="coursAnneeId"]');
+            coursAnnees.forEach(coursAnnee => {
+                const cours = cours.find(c => c.id === coursAnnee.coursId);
+                const option = new Option(`${cours.intitule} - ${coursAnnee.id}`, coursAnnee.id);
+                coursAnnuelSelect.add(option);
+            });
+        }
+
+        // Gestion de l'affichage des formulaires
+        function showForm(formType) {
+            document.querySelectorAll('.form-section').forEach(form => {
+                form.classList.add('hidden');
+            });
+            document.getElementById(`${formType}Form`).classList.remove('hidden');
+        }
+
+        // Gestion des soumissions
+        function handleCoursSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {
+                id: formData.get('coursId'),
+                intitule: formData.get('intitule')
+            };
+            console.log('Nouveau cours:', data);
+            alert('Cours enregistré avec succès !');
+            event.target.reset();
+        }
+
+        function handleCoursAnnuelSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {
+                id: formData.get('coursAnnuelId'),
+                coursId: formData.get('coursId'),
+                professeurAnneeId: formData.get('professeurAnneeId'),
+                classeAnneeId: formData.get('classeAnneeId'),
+                anneeScolaireId: formData.get('anneeScolaireId'),
+                semestreId: formData.get('semestreId'),
+                actif: formData.get('actif') === 'on'
+            };
+            console.log('Nouveau cours annuel:', data);
+            alert('Cours annuel enregistré avec succès !');
+            event.target.reset();
+        }
+
+        function handleSeanceSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {
+                id: formData.get('seanceId'),
+                coursAnneeId: formData.get('coursAnneeId'),
+                date: formData.get('date'),
+                heureDebut: formData.get('heureDebut'),
+                heureFin: formData.get('heureFin')
+            };
+            console.log('Nouvelle séance:', data);
+            alert('Séance enregistrée avec succès !');
+            event.target.reset();
+        }
+
+        // Validation des heures
+        document.querySelector('input[name="heureFin"]').addEventListener('change', function() {
+            const heureDebut = document.querySelector('input[name="heureDebut"]').value;
+            const heureFin = this.value;
+            
+            if (heureDebut && heureFin && heureDebut >= heureFin) {
+                alert("L'heure de fin doit être postérieure à l'heure de début");
+                this.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
