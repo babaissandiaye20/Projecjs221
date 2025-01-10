@@ -34,7 +34,7 @@ class ClasseForm {
         addClasseButton.onclick = () => this.modal.open();
 
         const addStudentButton = document.createElement('button');
-        addStudentButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500';
+        addStudentButton.className = 'bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-500';
         addStudentButton.textContent = 'Ajouter un étudiant à une classe';
         addStudentButton.onclick = () => this.studentModal.open();
 

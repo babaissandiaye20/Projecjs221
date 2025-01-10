@@ -31,7 +31,7 @@ class CoursForm {
         addCoursButton.onclick = () => this.modal.open();
 
         const addProfessorButton = document.createElement('button');
-        addProfessorButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500';
+        addProfessorButton.className = 'bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-500';
         addProfessorButton.textContent = 'Assigner un professeur à un cours';
         addProfessorButton.onclick = () => this.professorModal.open();
 
