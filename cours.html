@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Classes</title>
+    <title>Liste des Cours</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -53,6 +53,7 @@
                     <i class="fas fa-graduation-cap text-xl"></i>
                     <span class="menu-text whitespace-nowrap">CLASSES</span>
                 </a>
+
                 <a href="cours.html" class="flex items-center space-x-3 text-white w-full p-3 rounded-lg bg-slate-200/20 hover:bg-slate-200/30">
                     <i class="fas fa-book text-xl"></i>
                     <span class="menu-text whitespace-nowrap">COURS</span>
@@ -116,8 +117,8 @@
             <main class="p-6 bg-slate-100">
                 <div class="bg-slate-200 p-4 rounded-lg mb-4">
                     <h2 class="text-xl flex items-center space-x-2 text-teal-900">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>LISTE DES CLASSES</span>
+                        <i class="fas fa-book"></i>
+                        <span>LISTE DES COURS</span>
                     </h2>
                 </div>
 
@@ -127,20 +128,20 @@
                     </select>
                 </div>
                 
-                <div id="classes-table"></div>
+                <div id="cours-table"></div>
             </main>
 
-            <!-- Modal pour la liste des étudiants -->
-            <div id="students-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+            <!-- Modal pour la liste des professeurs -->
+            <div id="professors-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
                 <div class="bg-white rounded-lg p-6 w-full max-w-4xl mx-4">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold text-teal-900">Liste des Étudiants</h3>
+                        <h3 class="text-xl font-bold text-teal-900">Liste des Professeurs</h3>
                         <button class="close-modal text-gray-500 hover:text-gray-700">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-                    <div id="students-list" class="max-h-[70vh] overflow-y-auto">
-                        <!-- La liste des étudiants sera ajoutée ici -->
+                    <div id="professors-list" class="max-h-[70vh] overflow-y-auto">
+                        <!-- La liste des professeurs sera ajoutée ici -->
                     </div>
                 </div>
             </div>
@@ -148,6 +149,6 @@
     </div>
     <script type="module" src="src/main.js"></script>
     <script type="module" src="src/Fetch/user-profile.js"></script>
-    <script type="module" src="src/Fetch/classes.js"></script>
+    <script type="module" src="src/Fetch/cours.js"></script>
 </body>
 </html>

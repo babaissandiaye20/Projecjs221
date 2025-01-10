@@ -141,11 +141,20 @@ class AnneesScolaires {
                 })
             );
     
+            // 4. Mettre à jour le champ actif des cours_annees
+            const coursAnnees = await getData('cours_annees');
+            const updateCoursAnneesPromises = coursAnnees.map(coursAnnee => 
+                patchData(`cours_annees/${coursAnnee.id}`, {
+                    actif: coursAnnee.anneeScolaireId === id
+                })
+            );
+    
             // Exécuter toutes les mises à jour
             await Promise.all([
                 ...updateAnneesPromises,
                 ...updateProfesseursAnneesPromises,
-                ...updateClassesAnneesPromises
+                ...updateClassesAnneesPromises,
+                ...updateCoursAnneesPromises
             ]);
     
             await this.fetchAndRenderData();

@@ -194,7 +194,8 @@
       "professeurAnneeId": "PA001",
       "classeAnneeId": "CA001",
       "anneeScolaireId": "AS001",
-      "semestreId": "S001"
+      "semestreId": "S001",
+      "actif": true
     },
     {
       "id": "CRA002",
@@ -202,7 +203,8 @@
       "professeurAnneeId": "PA002",
       "classeAnneeId": "CA001",
       "anneeScolaireId": "AS001",
-      "semestreId": "S001"
+      "semestreId": "S001",
+      "actif": true
     },
     {
       "id": "CRA003",
@@ -210,7 +212,8 @@
       "professeurAnneeId": "PA003",
       "classeAnneeId": "CA002",
       "anneeScolaireId": "AS001",
-      "semestreId": "S001"
+      "semestreId": "S001",
+      "actif": true
     }
   ],
   "seances": [
