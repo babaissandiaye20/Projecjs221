@@ -5,14 +5,14 @@
       "libelle": "2023-2024",
       "dateDebut": "2023-09-01",
       "dateFin": "2024-07-31",
-      "isActive": false
+      "isActive": true
     },
     {
       "id": "AS002",
       "libelle": "2024-2025",
       "dateDebut": "2024-09-01",
       "dateFin": "2025-07-31",
-      "isActive": true
+      "isActive": false
     }
   ],
   "responsables_pedagogiques": [
@@ -110,43 +110,43 @@
       "id": "PA001",
       "professeurId": "P001",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "PA002",
       "professeurId": "P002",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "PA003",
       "professeurId": "P003",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "PA004",
       "professeurId": "P004",
       "anneeScolaireId": "AS002",
-      "actif": true
+      "actif": false
     },
     {
       "id": "PA005",
       "professeurId": "P005",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "PA006",
       "professeurId": "P006",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "PA007",
       "professeurId": "P007",
       "anneeScolaireId": "AS002",
-      "actif": true
+      "actif": false
     }
   ],
   "classes": [
@@ -181,31 +181,31 @@
       "id": "CA001",
       "classeId": "C001",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "CA002",
       "classeId": "C002",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "CA003",
       "classeId": "C003",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "CA004",
       "classeId": "C004",
       "anneeScolaireId": "AS001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "CA005",
       "classeId": "C005",
       "anneeScolaireId": "AS002",
-      "actif": true
+      "actif": false
     }
   ],
   "etudiants": [
@@ -235,15 +235,6 @@
       "login": "sididiop53@gmail.com",
       "mdp": "passer123",
       "role": "ETUDIANT"
-    },
-    {
-      "id": "E004",
-      "matricule": "20230004",
-      "nomComplet": "President Amateur",
-      "adress": "Parcelles",
-      "login": "Presi@gmail.com",
-      "mdp": "passer123",
-      "role": "ETUDIANT"
     }
   ],
   "etudiants_annees": [
@@ -264,6 +255,12 @@
       "etudiantId": "E003",
       "classeAnneeId": "CA002",
       "anneeScolaireId": "AS001"
+    },
+    {
+      "id": "EA004",
+      "etudiantId": "E002",
+      "classeAnneeId": "CA005",
+      "anneeScolaireId": "AS002"
     }
   ],
   "cours": [
@@ -278,6 +275,10 @@
     {
       "id": "CR003",
       "intitule": "Ruby on Rails"
+    },
+    {
+      "id": "CR004",
+      "intitule": "Php "
     }
   ],
   "cours_annees": [
@@ -288,7 +289,7 @@
       "classeAnneeId": "CA001",
       "anneeScolaireId": "AS001",
       "semestreId": "S001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "CRA002",
@@ -297,7 +298,7 @@
       "classeAnneeId": "CA001",
       "anneeScolaireId": "AS001",
       "semestreId": "S001",
-      "actif": false
+      "actif": true
     },
     {
       "id": "CRA003",
@@ -306,7 +307,33 @@
       "classeAnneeId": "CA002",
       "anneeScolaireId": "AS001",
       "semestreId": "S001",
+      "actif": true
+    },
+    {
+      "id": "CRA004",
+      "coursId": "CR004",
+      "classeAnneeId": "CA005",
+      "anneeScolaireId": "AS002",
+      "semestreId": "S001",
       "actif": false
+    },
+    {
+      "id": "CRA004",
+      "coursId": "CR004",
+      "classeAnneeId": "CA005",
+      "anneeScolaireId": "AS002",
+      "semestreId": "S001",
+      "actif": true,
+      "professeurAnneeId": "PA004"
+    },
+    {
+      "id": "CRA004",
+      "coursId": "CR004",
+      "classeAnneeId": "CA005",
+      "anneeScolaireId": "AS002",
+      "semestreId": "S001",
+      "actif": true,
+      "professeurAnneeId": "PA007"
     }
   ],
   "seances": [
