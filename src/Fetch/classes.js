@@ -1,6 +1,7 @@
 // classes.js
 import { getData } from './fetch.js';
 import { Table } from '../../Component/table.js';
+import { ClasseForm } from './classe-form.js';
 
 class Classes {
     constructor() {
@@ -249,6 +250,7 @@ class Classes {
     async init() {
         try {
             await this.checkUserRole();
+            new ClasseForm();
             await this.loadAnneeFilter();
             this.setupModal();
             await this.fetchData();

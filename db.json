@@ -5,14 +5,14 @@
       "libelle": "2023-2024",
       "dateDebut": "2023-09-01",
       "dateFin": "2024-07-31",
-      "isActive": true
+      "isActive": false
     },
     {
       "id": "AS002",
       "libelle": "2024-2025",
       "dateDebut": "2024-09-01",
       "dateFin": "2025-07-31",
-      "isActive": false
+      "isActive": true
     }
   ],
   "responsables_pedagogiques": [
@@ -110,43 +110,43 @@
       "id": "PA001",
       "professeurId": "P001",
       "anneeScolaireId": "AS001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "PA002",
       "professeurId": "P002",
       "anneeScolaireId": "AS001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "PA003",
       "professeurId": "P003",
       "anneeScolaireId": "AS001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "PA004",
       "professeurId": "P004",
       "anneeScolaireId": "AS002",
-      "actif": false
+      "actif": true
     },
     {
       "id": "PA005",
       "professeurId": "P005",
       "anneeScolaireId": "AS001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "PA006",
       "professeurId": "P006",
       "anneeScolaireId": "AS001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "PA007",
       "professeurId": "P007",
       "anneeScolaireId": "AS002",
-      "actif": false
+      "actif": true
     }
   ],
   "classes": [
@@ -159,6 +159,21 @@
       "id": "C002",
       "nom": "Classe B",
       "niveauId": "N001"
+    },
+    {
+      "id": "C003",
+      "nom": "Wane",
+      "niveauId": "N1"
+    },
+    {
+      "id": "C004",
+      "nom": "Ndiaye",
+      "niveauId": "N002"
+    },
+    {
+      "id": "C005",
+      "nom": "Wane",
+      "niveauId": "N001"
     }
   ],
   "classes_annees": [
@@ -166,12 +181,30 @@
       "id": "CA001",
       "classeId": "C001",
       "anneeScolaireId": "AS001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "CA002",
       "classeId": "C002",
       "anneeScolaireId": "AS001",
+      "actif": false
+    },
+    {
+      "id": "CA003",
+      "classeId": "C003",
+      "anneeScolaireId": "AS001",
+      "actif": false
+    },
+    {
+      "id": "CA004",
+      "classeId": "C004",
+      "anneeScolaireId": "AS001",
+      "actif": false
+    },
+    {
+      "id": "CA005",
+      "classeId": "C005",
+      "anneeScolaireId": "AS002",
       "actif": true
     }
   ],
@@ -200,6 +233,15 @@
       "nomComplet": "Sidy Diop Baldé",
       "adress": "Parcelles",
       "login": "sididiop53@gmail.com",
+      "mdp": "passer123",
+      "role": "ETUDIANT"
+    },
+    {
+      "id": "E004",
+      "matricule": "20230004",
+      "nomComplet": "President Amateur",
+      "adress": "Parcelles",
+      "login": "Presi@gmail.com",
       "mdp": "passer123",
       "role": "ETUDIANT"
     }
@@ -246,7 +288,7 @@
       "classeAnneeId": "CA001",
       "anneeScolaireId": "AS001",
       "semestreId": "S001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "CRA002",
@@ -255,7 +297,7 @@
       "classeAnneeId": "CA001",
       "anneeScolaireId": "AS001",
       "semestreId": "S001",
-      "actif": true
+      "actif": false
     },
     {
       "id": "CRA003",
@@ -264,7 +306,7 @@
       "classeAnneeId": "CA002",
       "anneeScolaireId": "AS001",
       "semestreId": "S001",
-      "actif": true
+      "actif": false
     }
   ],
   "seances": [
