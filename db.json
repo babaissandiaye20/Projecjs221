@@ -70,6 +70,39 @@
       "login": "nfreak",
       "mdp": "passer123",
       "role": "PROF"
+    },
+    {
+      "id": "P005",
+      "nom": "Wane",
+      "prenom": "Birame",
+      "grade": "TD",
+      "specialite": "Java",
+      "email": "douvewane@gmail.com",
+      "login": "douvewane@gmail.com",
+      "mdp": "passer123",
+      "role": "PROF"
+    },
+    {
+      "id": "P006",
+      "nom": "Mbow",
+      "prenom": "Saer",
+      "grade": "Senior",
+      "specialite": "Php",
+      "email": "Saermbow@gmail.com",
+      "login": "Saermbow@gmail.com",
+      "mdp": "passer123",
+      "role": "PROF"
+    },
+    {
+      "id": "P007",
+      "nom": "Ndiaye",
+      "prenom": "Issa",
+      "grade": "TD",
+      "specialite": "Python",
+      "email": "issandiaye@gmail.com",
+      "login": "issandiaye@gmail.com",
+      "mdp": "passer123",
+      "role": "PROF"
     }
   ],
   "professeurs_annees": [
@@ -94,6 +127,24 @@
     {
       "id": "PA004",
       "professeurId": "P004",
+      "anneeScolaireId": "AS002",
+      "actif": false
+    },
+    {
+      "id": "PA005",
+      "professeurId": "P005",
+      "anneeScolaireId": "AS001",
+      "actif": true
+    },
+    {
+      "id": "PA006",
+      "professeurId": "P006",
+      "anneeScolaireId": "AS001",
+      "actif": true
+    },
+    {
+      "id": "PA007",
+      "professeurId": "P007",
       "anneeScolaireId": "AS002",
       "actif": false
     }

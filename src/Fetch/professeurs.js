@@ -1,7 +1,7 @@
 // professeurs.js
 import { getData } from './fetch.js';
 import { Table } from '../../Component/table.js';
-
+import { ProfesseurForm } from './professeur-form.js';
 class Professeurs {
     constructor() {
         this.tableConfig = {
@@ -179,6 +179,7 @@ renderEmptyState(container) {
     async init() {
         try {
             await this.checkUserRole();
+              new ProfesseurForm();
             await this.loadAnneeFilter();
             await this.fetchData();
             this.renderFilteredData();
