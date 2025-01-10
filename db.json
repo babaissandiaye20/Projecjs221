@@ -59,23 +59,43 @@
       "login": "nfreak",
       "mdp": "passer123",
       "role": "PROF"
+    },
+    {
+      "id": "P004",
+      "nom": "Freaka",
+      "prenom": "Ndiaye",
+      "grade": "Maître de conférences",
+      "specialite": "Ruby",
+      "email": "ndiaye.freak@ecole.com",
+      "login": "nfreak",
+      "mdp": "passer123",
+      "role": "PROF"
     }
   ],
   "professeurs_annees": [
     {
       "id": "PA001",
       "professeurId": "P001",
-      "anneeScolaireId": "AS001"
+      "anneeScolaireId": "AS001",
+      "actif": true
     },
     {
       "id": "PA002",
       "professeurId": "P002",
-      "anneeScolaireId": "AS001"
+      "anneeScolaireId": "AS001",
+      "actif": true
     },
     {
       "id": "PA003",
       "professeurId": "P003",
-      "anneeScolaireId": "AS001"
+      "anneeScolaireId": "AS001",
+      "actif": true
+    },
+    {
+      "id": "PA004",
+      "professeurId": "P004",
+      "anneeScolaireId": "AS002",
+      "actif": false
     }
   ],
   "classes": [
@@ -94,12 +114,14 @@
     {
       "id": "CA001",
       "classeId": "C001",
-      "anneeScolaireId": "AS001"
+      "anneeScolaireId": "AS001",
+      "actif": true
     },
     {
       "id": "CA002",
       "classeId": "C002",
-      "anneeScolaireId": "AS001"
+      "anneeScolaireId": "AS001",
+      "actif": true
     }
   ],
   "etudiants": [

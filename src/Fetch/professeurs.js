@@ -80,65 +80,8 @@ class Professeurs {
         }
     }
 
-    async filterProfesseursByYear(anneeScolaireId) {
-        if (!anneeScolaireId) return [];
-    
-        try {
-            // Récupérer les données fraîches à chaque fois
-            const [professeurs, professeursAnnees] = await Promise.all([
-                getData('professeurs'),
-                getData('professeurs_annees')
-            ]);
-    
-            // Filtrer les affectations pour l'année spécifique
-            const professeursForYear = professeursAnnees
-                .filter(pa => pa.anneeScolaireId === anneeScolaireId)
-                .map(pa => pa.professeurId);
-    
-            // Retourner uniquement les professeurs affectés à cette année
-            return professeurs.filter(prof => professeursForYear.includes(prof.id));
-        } catch (error) {
-            console.error('Erreur de filtrage:', error);
-            return [];
-        }
-    }
-    async renderFilteredData() {
-        const tableContainer = document.getElementById('professeurs-table');
-        
-        try {
-            await this.fetchData(); // Recharger les données à chaque fois
-            console.log('Données récupérées:', {
-                professeurs: this.allProfesseurs,
-                professeursAnnees: this.professeursAnnees,
-                currentYear: this.currentYear
-            });
-            
-            if (!this.allProfesseurs?.length) {
-                this.renderEmptyState(tableContainer);
-                return;
-            }
-
-            const filteredProfesseurs = this.filterProfesseursByYear(this.currentYear);
-            console.log('Professeurs filtrés:', filteredProfesseurs);
-            
-            if (!filteredProfesseurs.length) {
-                this.renderNoProfsForYear(tableContainer);
-                return;
-            }
-
-            this.table = new Table({
-                ...this.tableConfig,
-                container: tableContainer,
-                data: filteredProfesseurs,
-                itemsPerPage: 10
-            });
-
-            this.table.render();
-        } catch (error) {
-            console.error('Erreur lors du rendu des données:', error);
-            this.handleError(error, tableContainer);
-        }
-    }
+   
+   
 
     handleError(error, container) {
         console.error('Erreur:', error);
@@ -166,75 +109,72 @@ class Professeurs {
         }
     }
 
-   async filterProfesseursByYear(anneeScolaireId) {
-    if (!anneeScolaireId) return [];
-
-    try {
-        // Récupérer les données à jour
-        const [professeurs, professeursAnnees] = await Promise.all([
-            getData('professeurs'),
-            getData('professeurs_annees')
-        ]);
-
-        console.log('Année scolaire recherchée:', anneeScolaireId);
-        console.log('Affectations trouvées:', professeursAnnees);
-
-        // Filtrer strictement par année scolaire
-        const profsIds = professeursAnnees
-            .filter(pa => pa.anneeScolaireId === anneeScolaireId)
-            .map(pa => pa.professeurId);
-
-        console.log('IDs des professeurs trouvés:', profsIds);
-
-        // Retourner uniquement les professeurs de cette année
-        const profsFiltered = professeurs.filter(prof => profsIds.includes(prof.id));
-        console.log('Professeurs filtrés:', profsFiltered);
-
-        return profsFiltered;
-    } catch (error) {
-        console.error('Erreur de filtrage:', error);
-        return [];
+    async filterProfesseursByYear(anneeScolaireId) {
+        if (!anneeScolaireId) return [];
+    
+        try {
+            const [professeurs, professeursAnnees] = await Promise.all([
+                getData('professeurs'),
+                getData('professeurs_annees')
+            ]);
+    
+            console.log('Année recherchée:', anneeScolaireId);
+            console.log('Professeurs disponibles:', professeurs);
+            console.log('Affectations professeurs:', professeursAnnees);
+    
+            const profsIds = professeursAnnees
+                .filter(pa => pa.anneeScolaireId === anneeScolaireId && pa.actif === true)
+                .map(pa => pa.professeurId);
+    
+            console.log('IDs des professeurs filtrés:', profsIds);
+    
+            const result = professeurs.filter(prof => profsIds.includes(prof.id));
+            console.log('Résultat final:', result);
+    
+            return result;
+        } catch (error) {
+            console.error('Erreur de filtrage:', error);
+            return [];
+        }
     }
+  
+    // Supprimer la première version de filterProfesseursByYear et garder celle avec le filtre actif
+// Supprimer la première version de renderFilteredData et modifier la deuxième comme suit:
+
+async renderFilteredData() {
+    const tableContainer = document.getElementById('professeurs-table');
+    await this.fetchData();
+    
+    if (!this.allProfesseurs?.length) {
+        this.renderEmptyState(tableContainer);
+        return;
+    }
+
+    // Attendre que la promesse soit résolue avec await
+    const filteredProfesseurs = await this.filterProfesseursByYear(this.currentYear);
+    
+    if (!filteredProfesseurs?.length) {
+        this.renderNoProfsForYear(tableContainer);
+        return;
+    }
+
+    this.table = new Table({
+        ...this.tableConfig,
+        container: tableContainer,
+        data: filteredProfesseurs,
+        itemsPerPage: 10
+    });
+
+    this.table.render();
 }
-    async renderFilteredData() {
-        const tableContainer = document.getElementById('professeurs-table');
-        await this.fetchData();
-        
-        if (!this.allProfesseurs?.length) {
-            this.renderEmptyState(tableContainer);
-            return;
-        }
 
-        const filteredProfesseurs = this.filterProfesseursByYear(this.currentYear);
-        
-        if (!filteredProfesseurs.length) {
-            this.renderNoProfsForYear(tableContainer);
-            return;
-        }
-
-        this.table = new Table({
-            ...this.tableConfig,
-            container: tableContainer,
-            data: filteredProfesseurs,
-            itemsPerPage: 10
-        });
-
-        this.table.render();
-    }
-
-    renderEmptyState(container) {
-        container.innerHTML = `
-            <div class="bg-white p-4 rounded-lg shadow text-center text-gray-500">
-                Aucun professeur disponible
-            </div>`;
-    }
-
-    renderNoProfsForYear(container) {
-        container.innerHTML = `
-            <div class="bg-white p-4 rounded-lg shadow text-center text-gray-500">
-                Aucun professeur pour cette année scolaire
-            </div>`;
-    }
+// Et ajouter la méthode renderEmptyState qui manque
+renderEmptyState(container) {
+    container.innerHTML = `
+        <div class="bg-white p-4 rounded-lg shadow text-center text-gray-500">
+            Aucun professeur disponible
+        </div>`;
+}
 
     async init() {
         try {

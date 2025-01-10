@@ -34,29 +34,21 @@ async function postData(endpoint, data) {
     }
 }
 
-// Fonction PATCH modifiée pour préserver les données existantes
+// Fonction PATCH optimisée
 async function patchData(endpoint, updateData) {
     try {
-        // 1. D'abord, récupérer les données existantes
-        const existingData = await getData(endpoint);
-        
-        // 2. Créer un nouvel objet qui combine les données existantes avec les mises à jour
-        const mergedData = {
-            ...existingData,
-            ...updateData
-        };
-        
-        // 3. Effectuer la requête PATCH
         const response = await fetch(`${BASE_URL}/${endpoint}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
+                'Prefer': 'return=representation'  // Demande au serveur de renvoyer l'objet mis à jour
             },
-            body: JSON.stringify(mergedData)
+            body: JSON.stringify(updateData)
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
         }
         
         return await response.json();

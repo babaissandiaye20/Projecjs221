@@ -117,27 +117,42 @@ class AnneesScolaires {
                 return;
             }
     
-            // Désactiver toutes les autres années et activer la nouvelle
+            // 1. Mettre à jour uniquement le champ isActive des années scolaires
             const annees = await getData('annees_scolaires');
-            
-            // Préparer toutes les mises à jour
-            const updatePromises = annees.map(annee => {
-                return patchData(`annees_scolaires/${annee.id}`, {
+            const updateAnneesPromises = annees.map(annee => 
+                patchData(`annees_scolaires/${annee.id}`, {
                     isActive: annee.id === id
-                });
-            });
+                })
+            );
     
-            // Effectuer toutes les mises à jour
-            await Promise.all(updatePromises);
+            // 2. Mettre à jour uniquement le champ actif des professeurs_annees
+            const professeursAnnees = await getData('professeurs_annees');
+            const updateProfesseursAnneesPromises = professeursAnnees.map(profAnnee => 
+                patchData(`professeurs_annees/${profAnnee.id}`, {
+                    actif: profAnnee.anneeScolaireId === id
+                })
+            );
     
-            // NE PAS toucher aux professeurs_annees !
-            // C'était ça le problème - on ne doit pas modifier les affectations
+            // 3. Mettre à jour le champ actif des classes_annees
+            const classesAnnees = await getData('classes_annees');
+            const updateClassesAnneesPromises = classesAnnees.map(classAnnee => 
+                patchData(`classes_annees/${classAnnee.id}`, {
+                    actif: classAnnee.anneeScolaireId === id
+                })
+            );
+    
+            // Exécuter toutes les mises à jour
+            await Promise.all([
+                ...updateAnneesPromises,
+                ...updateProfesseursAnneesPromises,
+                ...updateClassesAnneesPromises
+            ]);
     
             await this.fetchAndRenderData();
             alert('Année scolaire activée avec succès');
         } catch (error) {
             console.error('Erreur lors de l\'activation:', error);
-            alert('Erreur lors de l\'activation de l\'année scolaire');
+            alert('Erreur lors de l\'activation: ' + error.message);
             this.handleError(error);
         }
     }
