@@ -1,7 +1,7 @@
-// professeur-form.js
 import { TableForm } from '../../Component/form.js';
 import { Modal } from '../../Component/modal.js';
 import { getData, postData } from './fetch.js';
+import { Validator } from '../../Component/validator.js';
 
 class ProfesseurForm {
     constructor() {
@@ -87,42 +87,36 @@ class ProfesseurForm {
     }
 
     setupForm(containerId) {
+        const fieldsConfig = [
+            { label: 'Nom', name: 'nom', required: true, placeholder: 'Entrez le nom du professeur' },
+            { label: 'Prénom', name: 'prenom', required: true, placeholder: 'Entrez le prénom du professeur' },
+            { label: 'Grade', name: 'grade', required: true, placeholder: 'Ex: Professeur, Maître de conférences...' },
+            { label: 'Spécialité', name: 'specialite', required: true, placeholder: 'Ex: Java, PHP, Python...' },
+            { label: 'Email', name: 'email', required: true, placeholder: 'exemple@ecole.com' }
+        ];
+
+        const validator = new Validator(fieldsConfig);
+
         this.form = new TableForm({
             container: this.modal.modal.querySelector(`#${containerId}`),
-            fields: [
-                {
-                    label: 'Nom',
-                    name: 'nom',
-                    required: true,
-                    placeholder: 'Entrez le nom du professeur'
-                },
-                {
-                    label: 'Prénom',
-                    name: 'prenom',
-                    required: true,
-                    placeholder: 'Entrez le prénom du professeur'
-                },
-                {
-                    label: 'Grade',
-                    name: 'grade',
-                    required: true,
-                    placeholder: 'Ex: Professeur, Maître de conférences...'
-                },
-                {
-                    label: 'Spécialité',
-                    name: 'specialite',
-                    required: true,
-                    placeholder: 'Ex: Java, PHP, Python...'
-                },
-                {
-                    label: 'Email',
-                    name: 'email',
-                    type: 'email',
-                    required: true,
-                    placeholder: 'exemple@ecole.com'
-                }
-            ],
+            fields: fieldsConfig,
             onSubmit: async (data) => {
+                // Effacer les anciens messages d'erreur
+                fieldsConfig.forEach(field => {
+                    const errorElement = document.getElementById(`error-${field.name}`);
+                    if (errorElement) errorElement.textContent = '';
+                });
+
+                // Validation
+                if (!validator.validate(data)) {
+                    const errors = validator.getErrors();
+                    Object.keys(errors).forEach(fieldName => {
+                        const errorElement = document.getElementById(`error-${fieldName}`);
+                        if (errorElement) errorElement.textContent = errors[fieldName];
+                    });
+                    return;
+                }
+
                 try {
                     const newProfId = await this.generateProfesseurId();
                     const newProfAnneeId = await this.generateProfesseurAnneeId();
@@ -151,12 +145,23 @@ class ProfesseurForm {
                     window.location.reload();
                 } catch (error) {
                     console.error('Erreur lors de l\'ajout du professeur:', error);
-                    alert('Une erreur est survenue lors de l\'ajout du professeur');
                 }
             }
         });
 
         this.form.render();
+
+        // Ajouter des conteneurs pour afficher les messages d'erreur
+        fieldsConfig.forEach(field => {
+            const inputElement = this.modal.modal.querySelector(`#${containerId} [name="${field.name}"]`);
+            if (inputElement) {
+                const errorElement = document.createElement('div');
+                errorElement.id = `error-${field.name}`;
+                errorElement.style.color = 'red';
+                errorElement.style.fontSize = '0.875rem';
+                inputElement.parentElement.appendChild(errorElement);
+            }
+        });
     }
 }
 

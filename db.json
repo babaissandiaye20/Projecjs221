@@ -147,6 +147,12 @@
       "professeurId": "P007",
       "anneeScolaireId": "AS002",
       "actif": false
+    },
+    {
+      "id": "PA008",
+      "professeurId": "P008",
+      "anneeScolaireId": "AS001",
+      "actif": true
     }
   ],
   "classes": [
@@ -216,7 +222,8 @@
       "adress": "Ouakam",
       "login": "babaissandiaye242@gmail.com",
       "mdp": "passer123",
-      "role": "ETUDIANT"
+      "role": "ETUDIANT",
+      "photo": "https://res.cloudinary.com/di50em335/image/upload/v1730225327/uploads/wyzi32fuli00fheydqga.jpg"
     },
     {
       "id": "E002",
@@ -225,7 +232,8 @@
       "adress": "Liberté 4",
       "login": "getchardiallo@gmail.com",
       "mdp": "passer123",
-      "role": "ETUDIANT"
+      "role": "ETUDIANT",
+      "photo": "https://res.cloudinary.com/di50em335/image/upload/v1730491897/uploads/pba0emjtf1gmolemtgng.jpg"
     },
     {
       "id": "E003",
@@ -234,7 +242,8 @@
       "adress": "Parcelles",
       "login": "sididiop53@gmail.com",
       "mdp": "passer123",
-      "role": "ETUDIANT"
+      "role": "ETUDIANT",
+      "photo": "https://res.cloudinary.com/di50em335/image/upload/v1730491897/uploads/pba0emjtf1gmolemtgng.jpg"
     }
   ],
   "etudiants_annees": [

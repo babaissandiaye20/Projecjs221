@@ -176,6 +176,9 @@ class Classes {
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Photo
+                            </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Matricule
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -189,6 +192,7 @@ class Classes {
                         <tbody>
                             ${students.map(student => `
                                 <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap"><img class="h-16 rounded-full"src="${student.photo}"></td>
                                     <td class="px-6 py-4 whitespace-nowrap">${student.matricule}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">${student.nomComplet}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">${student.adress}</td>
