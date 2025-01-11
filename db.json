@@ -103,6 +103,17 @@
       "login": "issandiaye@gmail.com",
       "mdp": "passer123",
       "role": "PROF"
+    },
+    {
+      "id": "P008",
+      "nom": "Ndiaye",
+      "prenom": "Baba Issa",
+      "grade": "Professeur",
+      "specialite": "React",
+      "email": "babaissandiaye31@gmail.com",
+      "login": "babaissandiaye31@gmail.com",
+      "mdp": "passer123",
+      "role": "PROF"
     }
   ],
   "professeurs_annees": [
@@ -145,6 +156,12 @@
     {
       "id": "PA007",
       "professeurId": "P007",
+      "anneeScolaireId": "AS002",
+      "actif": false
+    },
+    {
+      "id": "PA008",
+      "professeurId": "P008",
       "anneeScolaireId": "AS002",
       "actif": false
     }
