@@ -10,6 +10,7 @@ class ClasseForm {
         this.studentModal = null;
         this.form = null;
         this.init();
+        
     }
 
     async init() {

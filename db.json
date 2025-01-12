@@ -153,6 +153,36 @@
       "professeurId": "P008",
       "anneeScolaireId": "AS001",
       "actif": true
+    },
+    {
+      "id": "PA009",
+      "professeurId": "P008",
+      "anneeScolaireId": "AS001",
+      "actif": true
+    },
+    {
+      "id": "PA010",
+      "professeurId": "P009",
+      "anneeScolaireId": "AS001",
+      "actif": true
+    },
+    {
+      "id": "PA011",
+      "professeurId": "P008",
+      "anneeScolaireId": "AS001",
+      "actif": true
+    },
+    {
+      "id": "PA012",
+      "professeurId": "P008",
+      "anneeScolaireId": "AS001",
+      "actif": true
+    },
+    {
+      "id": "PA013",
+      "professeurId": "P008",
+      "anneeScolaireId": "AS001",
+      "actif": true
     }
   ],
   "classes": [

@@ -7,6 +7,7 @@ class CoursForm {
         this.modal = null;
         this.professorModal = null;
         this.init();
+     
     }
 
     async init() {

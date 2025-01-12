@@ -19,7 +19,7 @@ class TableForm {
                                 placeholder="${field.placeholder || ''}"
                                 class="p-2 rounded-lg bg-teal-800 text-white border border-teal-700 
                                 focus:outline-none focus:border-teal-500"
-                                ${field.required ? 'required' : ''}
+                            
                             >
                         </div>
                     `).join('')}
